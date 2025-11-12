@@ -1,0 +1,13 @@
+{
+  "name": "medical-appointment-booking",
+  "version": "1.0.0",
+  "description": "Medical Appointment Booking System - MERN Stack",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "seed": "cd backend && node scripts/seedData.js",
+    "dev": "echo Please run 'npm run dev' in both backend and frontend folders in separate terminals"
+  },
+  "keywords": ["medical", "appointment", "booking", "mern", "react", "node", "mongodb"],
+  "author": "",
+  "license": "MIT"
+}
