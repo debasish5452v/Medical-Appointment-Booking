@@ -37,6 +37,21 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Medical Appointment Booking API',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      appointments: '/api/appointments',
+      doctors: '/api/doctors',
+      users: '/api/users'
+    }
+  });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', apptRoutes);
