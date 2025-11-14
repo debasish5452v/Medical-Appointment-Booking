@@ -49,7 +49,7 @@ export default function AppointmentCard({ appointment, onCancel }) {
         {appointment.doctor?.consultationFee && (
           <div className="info-row">
             <span className="info-label">💰 Fee:</span>
-            <span className="info-value">${appointment.doctor.consultationFee}</span>
+            <span className="info-value">₹{appointment.doctor.consultationFee}</span>
           </div>
         )}
       </div>

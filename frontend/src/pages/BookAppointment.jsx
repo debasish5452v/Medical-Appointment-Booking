@@ -128,7 +128,7 @@ export default function BookAppointment() {
               {doctors.map(doctor => (
                 <option key={doctor._id} value={doctor._id}>
                   Dr. {doctor.name} - {doctor.specialization}
-                  {doctor.consultationFee > 0 && ` ($${doctor.consultationFee})`}
+                  {doctor.consultationFee > 0 && ` (₹${doctor.consultationFee})`}
                 </option>
               ))}
             </select>
@@ -145,7 +145,7 @@ export default function BookAppointment() {
                 <p><strong>Experience:</strong> {selectedDoctor.experience} years</p>
               )}
               {selectedDoctor.consultationFee > 0 && (
-                <p><strong>Consultation Fee:</strong> ${selectedDoctor.consultationFee}</p>
+                <p><strong>Consultation Fee:</strong> ₹{selectedDoctor.consultationFee}</p>
               )}
             </div>
           )}

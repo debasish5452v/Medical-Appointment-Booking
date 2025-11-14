@@ -22,7 +22,7 @@ export default function DoctorCard({ doctor, onBook }) {
         )}
         
         {doctor.consultationFee > 0 && (
-          <p className="doctor-info">💰 ${doctor.consultationFee} consultation fee</p>
+          <p className="doctor-info">💰 ₹{doctor.consultationFee} consultation fee</p>
         )}
         
         {doctor.bio && (
