@@ -180,12 +180,53 @@ JWT_SECRET=your_jwt_secret_key
 PORT=5000
 NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
+
+# Agora credentials (for video calling)
+AGORA_APP_ID=your_agora_app_id
+AGORA_APP_CERTIFICATE=your_agora_app_certificate
 ```
 
 ### Frontend (.env)
 ```env
 VITE_API_BASE=http://localhost:5000
 ```
+
+---
+
+## 🎥 Agora Video Calling Setup
+
+This application uses **Agora.io** for real-time video consultations between patients and doctors.
+
+### Getting Agora Credentials
+
+1. **Sign up** at [Agora Console](https://console.agora.io)
+2. **Create a new project**:
+   - Go to "Projects" → "Create"
+   - Choose "Secured mode: APP ID + Token" (recommended)
+   - Copy your **App ID**
+   - Enable and copy your **App Certificate**
+3. **Add to backend/.env**:
+   ```
+   AGORA_APP_ID=your_app_id_here
+   AGORA_APP_CERTIFICATE=your_certificate_here
+   ```
+4. **Add to Render** environment variables (for production)
+
+### How Video Calling Works
+
+- **Join Call**: Patients/doctors click "🎥 Join Video Call" on upcoming appointments
+- **Security**: Backend generates temporary tokens for each call session
+- **Privacy**: Each appointment has a unique channel (appointment ID)
+- **Compatibility**: Works in all modern browsers with camera/microphone permissions
+
+### Testing Video Calls Locally
+
+1. Book an appointment as a test patient
+2. Open appointment history page
+3. Click "Join Video Call" on an upcoming appointment
+4. Open another browser window (or incognito mode)
+5. Login as the doctor and join the same appointment
+6. Both users should see each other's video/audio
 
 ---
 

@@ -1,6 +1,10 @@
 import { format } from 'date-fns';
+import { useState } from 'react';
+import AgoraCall from './AgoraCall';
 
 export default function AppointmentCard({ appointment, onCancel }) {
+  const [showVideoCall, setShowVideoCall] = useState(false);
+
   const getStatusBadge = (status) => {
     const badges = {
       booked: 'badge badge-success',
@@ -13,6 +17,27 @@ export default function AppointmentCard({ appointment, onCancel }) {
 
   const isPast = new Date(appointment.date) < new Date();
   const canCancel = appointment.status === 'booked' && !isPast;
+  const canJoinCall = appointment.status === 'booked' && !isPast;
+
+  if (showVideoCall) {
+    return (
+      <div className="card appointment-card video-call-active">
+        <div className="card-header">
+          <h3 className="card-title">Video Call - Dr. {appointment.doctor?.name}</h3>
+          <button 
+            onClick={() => setShowVideoCall(false)}
+            className="btn btn-sm"
+          >
+            ← Back to Appointments
+          </button>
+        </div>
+        <AgoraCall 
+          channelName={appointment._id} 
+          onLeave={() => setShowVideoCall(false)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="card appointment-card">
@@ -56,6 +81,15 @@ export default function AppointmentCard({ appointment, onCancel }) {
       
       {canCancel && onCancel && (
         <div className="card-footer">
+          {canJoinCall && (
+            <button 
+              onClick={() => setShowVideoCall(true)}
+              className="btn btn-primary btn-sm"
+              style={{ marginRight: '10px' }}
+            >
+              🎥 Join Video Call
+            </button>
+          )}
           <button 
             onClick={() => onCancel(appointment._id)} 
             className="btn btn-danger btn-sm"
