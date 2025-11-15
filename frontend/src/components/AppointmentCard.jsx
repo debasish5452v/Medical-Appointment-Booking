@@ -5,6 +5,8 @@ import AgoraCall from './AgoraCall';
 export default function AppointmentCard({ appointment, onCancel }) {
   const [showVideoCall, setShowVideoCall] = useState(false);
 
+  console.log('AppointmentCard render - showVideoCall:', showVideoCall);
+
   const getStatusBadge = (status) => {
     const badges = {
       booked: 'badge badge-success',
@@ -20,21 +22,29 @@ export default function AppointmentCard({ appointment, onCancel }) {
   const canJoinCall = appointment.status === 'booked' && !isPast;
 
   if (showVideoCall) {
+    console.log('Rendering video call view for appointment:', appointment._id);
     return (
-      <div className="card appointment-card video-call-active">
+      <div className="card appointment-card video-call-active" style={{ border: '3px solid blue', padding: '20px' }}>
         <div className="card-header">
-          <h3 className="card-title">Video Call - Dr. {appointment.doctor?.name}</h3>
+          <h3 className="card-title" style={{ color: 'red', fontSize: '24px' }}>Video Call - Dr. {appointment.doctor?.name}</h3>
           <button 
-            onClick={() => setShowVideoCall(false)}
+            onClick={() => {
+              console.log('Back button clicked');
+              setShowVideoCall(false);
+            }}
             className="btn btn-sm"
+            style={{ background: 'orange', padding: '10px' }}
           >
             ← Back to Appointments
           </button>
         </div>
-        <AgoraCall 
-          channelName={appointment._id} 
-          onLeave={() => setShowVideoCall(false)}
-        />
+        <div style={{ background: 'yellow', padding: '20px' }}>
+          <h2>ABOUT TO RENDER AGORA CALL</h2>
+          <AgoraCall 
+            channelName={appointment._id} 
+            onLeave={() => setShowVideoCall(false)}
+          />
+        </div>
       </div>
     );
   }
@@ -83,7 +93,11 @@ export default function AppointmentCard({ appointment, onCancel }) {
         <div className="card-footer">
           {canJoinCall && (
             <button 
-              onClick={() => setShowVideoCall(true)}
+              onClick={() => {
+                console.log('Join Video Call button clicked!');
+                console.log('Setting showVideoCall to true');
+                setShowVideoCall(true);
+              }}
               className="btn btn-primary btn-sm"
               style={{ marginRight: '10px' }}
             >

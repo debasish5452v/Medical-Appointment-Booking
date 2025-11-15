@@ -15,6 +15,8 @@ const AgoraCall = ({ channelName, onLeave }) => {
   const remoteVideoContainerRef = useRef(null);
 
   useEffect(() => {
+    console.log('AgoraCall component mounted with channelName:', channelName);
+    
     // Initialize Agora client
     clientRef.current = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
@@ -47,6 +49,7 @@ const AgoraCall = ({ channelName, onLeave }) => {
     });
 
     return () => {
+      console.log('AgoraCall component unmounting');
       leaveCall();
     };
   }, []);
@@ -129,11 +132,13 @@ const AgoraCall = ({ channelName, onLeave }) => {
   };
 
   return (
-    <div className="agora-call-container">
+    <div className="agora-call-container" style={{ background: '#f0f0f0', minHeight: '400px', border: '2px solid red' }}>
+      <h2 style={{ color: 'black', padding: '20px' }}>AGORA CALL COMPONENT LOADED</h2>
+      
       <div className="video-grid">
         {/* Local video */}
         <div className="video-wrapper local-video">
-          <div ref={localVideoContainerRef} className="video-player" />
+          <div ref={localVideoContainerRef} className="video-player" style={{ background: '#333' }} />
           <span className="video-label">You</span>
         </div>
 
@@ -163,11 +168,12 @@ const AgoraCall = ({ channelName, onLeave }) => {
             onClick={joinCall} 
             disabled={loading}
             className="btn-join"
+            style={{ background: 'green', color: 'white', padding: '15px 30px', fontSize: '18px' }}
           >
             {loading ? 'Joining...' : 'Join Video Call'}
           </button>
         ) : (
-          <button onClick={leaveCall} className="btn-leave">
+          <button onClick={leaveCall} className="btn-leave" style={{ background: 'red', color: 'white', padding: '15px 30px' }}>
             Leave Call
           </button>
         )}
