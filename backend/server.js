@@ -12,24 +12,22 @@ const agoraRoutes = require('./routes/agora');
 const app = express();
 
 // Middleware
-// Configure CORS for production
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://medical-appointment-booking-two.vercel.app',
-  'https://medical-appointment-booking-qlxg5kwtg-scribexs-projects.vercel.app',
-  process.env.FRONTEND_URL
-].filter(Boolean);
-
+// Configure CORS for production - allow Vercel and localhost
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Allow localhost
+    if (origin.includes('localhost')) return callback(null, true);
+    
+    // Allow any Vercel domain
+    if (origin.includes('vercel.app')) return callback(null, true);
+    
+    // Allow Render backend to call itself
+    if (origin.includes('onrender.com')) return callback(null, true);
+    
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   optionsSuccessStatus: 200
